@@ -35,8 +35,6 @@ class OptionsState extends MusicBeatState
 	#else
 	var checker:FlxBackdrop = new FlxBackdrop(Paths.image('Substate_Checker'));
 	#end
-	public static var checkerX:Float = 0;
-	public static var checkerY:Float = 0;
 	static var options:Array<String>;
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
@@ -68,14 +66,15 @@ class OptionsState extends MusicBeatState
 		#if (flixel_addons < "3.0.0")
 		checker.scrollFactor.set(0.2, 0.2);
 		#end
-		options = [Locale.get("noteColorsOption"), Locale.get("controlsOption"), Locale.get("delayOption"), Locale.get("graphicsOption"), Locale.get("visualsUIOption"), Locale.get("gameplayOption")];
+		options = [Locale.get("noteColorsOption"), Locale.get("controlsOption"), Locale.get("delayOption"), Locale.get("graphicsOption"), Locale.get("visualsUIOption"), Locale.get("gameplayOption"), Locale.get("parityOption")];
 		things = [
-			options[0] => function() openSubState(new options.NotesSubState()),
-			options[1] => function() openSubState(new options.ControlsSubState()),
-			options[2] => function() LoadingState.loadAndSwitchState(new options.NoteOffsetState()),
-			options[3] => function() openSubState(new options.GraphicsSettingsSubState()),
-			options[4] => function() openSubState(new options.VisualsUISubState()),
-			options[5] => function() openSubState(new options.GameplaySettingsSubState())
+			options[0] => () -> openSubState(new options.NotesSubState()),
+			options[1] => () -> openSubState(new options.ControlsSubState()),
+			options[2] => () -> LoadingState.loadAndSwitchState(new options.NoteOffsetState()),
+			options[3] => () -> openSubState(new options.GraphicsSettingsSubState()),
+			options[4] => () -> openSubState(new options.VisualsUISubState()),
+			options[5] => () -> openSubState(new options.GameplaySettingsSubState()),
+			options[6] => () -> openSubState(new options.ParitySettingsSubState())
 		];
 		#if desktop
 		DiscordClient.changePresence("Options Menu", null);
@@ -88,8 +87,6 @@ class OptionsState extends MusicBeatState
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
-		checker.x=BaseOptionsMenu.checkerX;
-		checker.y=BaseOptionsMenu.checkerY;
 		add(checker);
 		checker.scrollFactor.set(0.07,0);
 		grpOptions = new FlxTypedGroup<Alphabet>();
@@ -123,9 +120,7 @@ class OptionsState extends MusicBeatState
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 		checker.x -= 0.45 / (ClientPrefs.framerate / 60);
-		checkerX = checker.x;
 		checker.y -= 0.16 / (ClientPrefs.framerate / 60);
-		checkerY = checker.y;
 		if (controls.UI_UP_P) {
 			changeSelection(-1);
 		}

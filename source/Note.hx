@@ -78,6 +78,7 @@ class Note extends FlxSprite
 	public var copyScaleX:Bool = true;
 	public var copyScaleY:Bool = true;
 	public var copyAlpha:Bool = true;
+	public var copyScrollDirection:Bool = true;
 
 	public var hitHealth:Float = 0.023;
 	public var missHealth:Float = 0.0475;

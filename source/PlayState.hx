@@ -84,6 +84,8 @@ import js.html.FileSystem;
 import vlc.MP4Handler;
 #end
 
+using flixel.util.FlxStringUtil;
+
 
 class PlayState extends MusicBeatState
 {
@@ -389,7 +391,7 @@ class PlayState extends MusicBeatState
 		];
 
 		//Ratings
-		ratingsData.push(new Rating('marv')); //default rating
+		if (!ClientPrefs.disableMarv) ratingsData.push(new Rating('marv')); //default rating
 
 		var rating:Rating = new Rating('sick');
 		rating.score = 350;
@@ -1509,7 +1511,7 @@ class PlayState extends MusicBeatState
 			FlxG.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyRelease);
 		}
 
-		if (Paths.formatToSongPath(SONG.song) != 'tutorial')
+		if (Paths.formatToSongPath(SONG.song) != 'tutorial' && !ClientPrefs.psychCam)
 			camZooming = true;
 
 
@@ -3537,6 +3539,9 @@ class PlayState extends MusicBeatState
 					var strumAlpha:Float = strumGroup.members[daNote.noteData].alpha;
 					var strumScroll:Bool = strumGroup.members[daNote.noteData].downScroll;
 
+					if (daNote.copyScrollDirection && daNote.isSustainNote && !ClientPrefs.psychSustain)
+						daNote.flipY = strumScroll;
+
 					if(daNote.copyScaleX)
 						daNote.scale.x = strumGroup.members[daNote.noteData].scale.x;
 
@@ -5052,6 +5057,9 @@ class PlayState extends MusicBeatState
 
 	function opponentNoteHit(note:Note):Void
 	{
+		
+		if (Paths.formatToSongPath(SONG.song) != 'tutorial' && ClientPrefs.psychCam)
+			camZooming = true;
 		if (!ClientPrefs.optimization && ClientPrefs.bopStyle == "REACTIVE" && !note.isSustainNote) iconP2.bopIcon(false, "dad");
 		if(note.noteType == 'Hey!' && dad.animOffsets.exists('hey')) {
 			dad.playAnim('hey', true);

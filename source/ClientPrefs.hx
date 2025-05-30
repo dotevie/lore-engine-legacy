@@ -16,6 +16,9 @@ class ClientPrefs {
 		return rawMemoryFormat = value;
 	}
 	public static var scaleMode:String = "LINEAR";
+	public static var psychCam:Bool = false;
+	public static var psychSustain:Bool = false;
+	public static var disableMarv:Bool = false;
 	public static var displayMiB:Bool = false;
 	public static var aspectRatio:String = '16:9';
 	public static var rainbowFPS:Bool = false;
@@ -135,7 +138,10 @@ class ClientPrefs {
 	}
 
 	public static function saveSettings() {
+		FlxG.save.data.psychCam = psychCam;
+		FlxG.save.data.psychSustain = psychSustain;
 		FlxG.save.data.scaleMode = scaleMode;
+		FlxG.save.data.disableMarv = disableMarv;
 		FlxG.save.data.displayMiB = displayMiB;
 		FlxG.save.data.rawMemoryFormat = rawMemoryFormat;
 		FlxG.save.data.skipTransitions = skipTransitions;
@@ -209,8 +215,17 @@ class ClientPrefs {
 	}
 
 	public static function loadPrefs() {
+		if(FlxG.save.data.psychCam != null) {
+			psychCam = FlxG.save.data.psychCam;
+		}
+		if(FlxG.save.data.psychSustain != null) {
+			psychSustain = FlxG.save.data.psychSustain;
+		}
 		if(FlxG.save.data.scaleMode != null) {
 			scaleMode = FlxG.save.data.scaleMode;
+		}
+		if(FlxG.save.data.disableMarv != null) {
+			disableMarv = FlxG.save.data.disableMarv;
 		}
 		if(FlxG.save.data.aspectRatio != null) {
 			aspectRatio = FlxG.save.data.aspectRatio;

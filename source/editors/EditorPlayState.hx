@@ -93,7 +93,7 @@ class EditorPlayState extends MusicBeatState
 		checker.scrollFactor.set(0.07,0);
 
 		laneunderlay = new FlxSprite(0, 0).makeGraphic(110 * 4 + 50, FlxG.height * 2);
-		laneunderlay.alpha = ClientPrefs.underlayAlpha / 100;
+		laneunderlay.alpha = ClientPrefs.underlayAlpha;
 		laneunderlay.color = FlxColor.BLACK;
 		laneunderlay.scrollFactor.set();
 		add(laneunderlay);
