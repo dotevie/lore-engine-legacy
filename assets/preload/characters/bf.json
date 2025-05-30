@@ -172,7 +172,7 @@
 		0,
 		350
 	],
-	"hasVictory": true,
+	"hasVictory": false,
 	"healthicon": "bf",
 	"flip_x": true,
 	"healthbar_colors": [
