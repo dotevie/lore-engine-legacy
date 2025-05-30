@@ -872,7 +872,7 @@ class EditorPlayState extends MusicBeatState
 			noteDiffGroup.destroy();
 			noteDiffGroup = new FlxTypedGroup<FlxText>();
 			if (ClientPrefs.smJudges) lastRating.destroy();
-			var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.ratingOffset);
+			var noteDiff:Float = Conductor.songPosition - note.strumTime + ClientPrefs.ratingOffset;
 			//trace(noteDiff, ' ' + Math.abs(note.strumTime - Conductor.songPosition));
 	
 			// boyfriend.playAnim('hey');
@@ -888,7 +888,7 @@ class EditorPlayState extends MusicBeatState
 			rating = new FlxSprite();
 	
 			//tryna do MS based judgment due to popular demand
-			var daRating:Rating = Conductor.judgeNote(note, noteDiff);
+			var daRating:Rating = Conductor.judgeNote(note, Math.abs(noteDiff));
 			var ratingNum:Int = 0;
 	
 			totalNotesHit += daRating.ratingMod;
@@ -937,7 +937,7 @@ class EditorPlayState extends MusicBeatState
 			comboSpr.x += ClientPrefs.comboOffset[0];
 			comboSpr.y -= ClientPrefs.comboOffset[1];
 
-			var noteDiffText:FlxText = new FlxText(0, 0, 0, Highscore.floorDecimal(noteDiff, 2) + " ms", 20);
+			var noteDiffText:FlxText = new FlxText(0, 0, 0, Std.int(noteDiff) + " ms", 20);
 			noteDiffText.x = coolText.x + ClientPrefs.comboOffset[4];
 			noteDiffText.screenCenter(Y);
 			noteDiffText.y -= 30 + ClientPrefs.comboOffset[5];

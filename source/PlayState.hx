@@ -4513,7 +4513,7 @@ class PlayState extends MusicBeatState
 		noteDiffGroup.destroy();
 		noteDiffGroup = new FlxTypedGroup<FlxText>();
 		if (ClientPrefs.smJudges) lastRating.destroy();
-		var noteDiff:Float = Math.abs(note.strumTime - Conductor.songPosition + ClientPrefs.ratingOffset);
+		var noteDiff:Float = (Conductor.songPosition - note.strumTime + ClientPrefs.ratingOffset) / playbackRate;
 		//trace(noteDiff, ' ' + Math.abs(note.strumTime - Conductor.songPosition));
 
 		// boyfriend.playAnim('hey');
@@ -4531,7 +4531,7 @@ class PlayState extends MusicBeatState
 		var score:Int = 350;
 
 		//tryna do MS based judgment due to popular demand
-		var daRating:Rating = Conductor.judgeNote(note, noteDiff / playbackRate);
+		var daRating:Rating = Conductor.judgeNote(note, Math.abs(noteDiff));
 
 		totalNotesHit += daRating.ratingMod;
 		note.ratingMod = daRating.ratingMod;
@@ -4585,7 +4585,7 @@ class PlayState extends MusicBeatState
 		}
 
 		#if !html5
-		var noteDiffText:FlxText = new FlxText(0, 0, 0, Highscore.floorDecimal(noteDiff, 2) + " ms", 20);
+		var noteDiffText:FlxText = new FlxText(0, 0, 0, Std.int(noteDiff) + " ms", 20);
 		noteDiffText.x = coolText.x;
 		noteDiffText.screenCenter(Y);
 		if (worldRatingPos != null && ClientPrefs.ratingPosition == "WORLD") {
