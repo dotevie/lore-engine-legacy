@@ -8,10 +8,11 @@
 
     "noteColorsOption": "Note Colors",
     "controlsOption": "Controls",
-    "delayOption": "Adjust Delay and Combo",
+    "delayOption": "Delay & Combo Position",
     "graphicsOption": "Graphics",
     "visualsUIOption": "Visuals and UI",
     "gameplayOption": "Gameplay",
+    "parityOption": "Parity",
 
     "notesNCOText": "NOTES",
     "uiNCOText": "UI",

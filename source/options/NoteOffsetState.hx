@@ -113,7 +113,7 @@ class NoteOffsetState extends MusicBeatState
 		
 		add(rating);
 
-		noteDiffText = new FlxText(0, 0, 0, "XXX.XX ms", 20);
+		noteDiffText = new FlxText(0, 0, 0, "XXX ms", 20);
 		noteDiffText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.YELLOW, CENTER, OUTLINE, FlxColor.BLACK);
 		noteDiffText.scale.set(ClientPrefs.ratingScale, ClientPrefs.ratingScale);
 		noteDiffText.updateHitbox();
@@ -163,7 +163,7 @@ class NoteOffsetState extends MusicBeatState
 		beatText.visible = false;
 		add(beatText);
 		
-		timeTxt = new FlxText(0, 600, FlxG.width, "", 32);
+		timeTxt = new FlxText(0, FlxG.height - 192, FlxG.width, "", 32);
 		timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		timeTxt.scrollFactor.set();
 		timeTxt.borderSize = 2;
@@ -194,13 +194,13 @@ class NoteOffsetState extends MusicBeatState
 
 		///////////////////////
 
-		var blackBox:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, 40, FlxColor.BLACK);
+		var blackBox:FlxSprite = new FlxSprite(0, FlxG.height - 40).makeGraphic(FlxG.width, 40, FlxColor.BLACK);
 		blackBox.scrollFactor.set();
 		blackBox.alpha = 0.6;
 		blackBox.cameras = [camHUD];
 		add(blackBox);
 
-		changeModeText = new FlxText(0, 4, FlxG.width, "", 32);
+		changeModeText = new FlxText(0, FlxG.height - 36, FlxG.width, "", 32);
 		changeModeText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER);
 		changeModeText.scrollFactor.set();
 		changeModeText.cameras = [camHUD];
@@ -209,6 +209,17 @@ class NoteOffsetState extends MusicBeatState
 
 		Conductor.changeBPM(128.0);
 		FlxG.sound.playMusic(Paths.music('offsetSong'), 1, true);
+
+		var titleText:Alphabet = new Alphabet(75, 40, "Delay & Combo Position", true);
+		titleText.scaleX = 0.6;
+		titleText.scaleY = 0.6;
+		titleText.alpha = 0.4;
+		titleText.scrollFactor.set();
+		titleText.cameras = [camHUD];
+		add(titleText);
+
+		FlxG.camera.setFilters([lore.Colorblind.gameFilters.get("GRAYSCALE").filter]);
+		add(new FlxSprite().makeGraphic(FlxG.width * 2, FlxG.height * 2, 0x80000000));
 
 		super.create();
 	}
@@ -459,7 +470,7 @@ class NoteOffsetState extends MusicBeatState
 	{
 		for (i in 0...6)
 		{
-			var text:FlxText = new FlxText(10, 48 + (i * 30), 0, '', 24);
+			var text:FlxText = new FlxText(10, 64 + (i * 30), 0, '', 24);
 			text.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 			text.scrollFactor.set();
 			text.borderSize = 2;

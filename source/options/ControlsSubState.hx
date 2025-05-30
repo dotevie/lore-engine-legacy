@@ -65,11 +65,6 @@ class ControlsSubState extends MusicBeatSubstate {
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private var grpInputs:Array<AttachedText> = [];
-	#if (flixel_addons < "3.0.0")
-	var checker:FlxBackdrop = new FlxBackdrop(Paths.image('Substate_Checker'), 0.2, 0.2, true, true);
-	#else
-	var checker:FlxBackdrop = new FlxBackdrop(Paths.image('Substate_Checker'));
-	#end
 	private var grpInputsAlt:Array<AttachedText> = [];
 	var rebindingKey:Bool = false;
 	var nextAccept:Int = 5;
@@ -81,15 +76,13 @@ class ControlsSubState extends MusicBeatSubstate {
 		super();
 		defaultKey = Locale.get("resetDefaultKeysNCOText");
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.color = 0xFFea71fd;
+		bg.color = 0xFFffffff;
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
-		checker.x = OptionsState.checkerX;
-		checker.y = OptionsState.checkerY;
-		add(checker);
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
+
 
 		optionShit.push(['']);
 		optionShit.push([defaultKey]);
@@ -120,14 +113,19 @@ class ControlsSubState extends MusicBeatSubstate {
 				if(curSelected < 0) curSelected = i;
 			}
 		}
+
+		var titleText:Alphabet = new Alphabet(75, 40, "Controls", true);
+		titleText.scaleX = 0.6;
+		titleText.scaleY = 0.6;
+		titleText.alpha = 0.4;
+		titleText.scrollFactor.set();
+		add(titleText);
 		changeSelection();
 	}
 
 	var leaving:Bool = false;
 	var bindingTime:Float = 0;
 	override function update(elapsed:Float) {
-		checker.x -= 0.45 / (ClientPrefs.framerate / 60);
-		checker.y -= 0.16 / (ClientPrefs.framerate / 60);
 		if(!rebindingKey) {
 			if (controls.UI_UP_P) {
 				changeSelection(-1);

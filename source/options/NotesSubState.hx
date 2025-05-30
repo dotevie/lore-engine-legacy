@@ -32,11 +32,6 @@ class NotesSubState extends MusicBeatSubstate
 {
 	private static var curSelected:Int = 0;
 	private static var typeSelected:Int = 0;
-	#if (flixel_addons < "3.0.0")
-	var checker:FlxBackdrop = new FlxBackdrop(Paths.image('Substate_Checker'), 0.2, 0.2, true, true);
-	#else
-	var checker:FlxBackdrop = new FlxBackdrop(Paths.image('Substate_Checker'));
-	#end
 	private var grpNumbers:FlxTypedGroup<Alphabet>;
 	private var grpNotes:FlxTypedGroup<FlxSprite>;
 	private var shaderArray:Array<ColorSwap> = [];
@@ -55,16 +50,14 @@ class NotesSubState extends MusicBeatSubstate
 		super();
 		
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
-		bg.color = 0xFFea71fd;
+		bg.color = 0xffffffff;
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		add(bg);
-		checker.x = OptionsState.checkerX;
-		checker.y = OptionsState.checkerY;
-		add(checker);
 		blackBG = new FlxSprite(posX - 25).makeGraphic(870, 200, FlxColor.BLACK);
 		blackBG.alpha = 0.4;
 		add(blackBG);
+
 
 		grpNotes = new FlxTypedGroup<FlxSprite>();
 		add(grpNotes);
@@ -97,13 +90,17 @@ class NotesSubState extends MusicBeatSubstate
 		hsbText.scaleY = 0.6;
 		add(hsbText);
 
+		var titleText:Alphabet = new Alphabet(75, 40, "Note Colors", true);
+		titleText.scaleX = 0.6;
+		titleText.scaleY = 0.6;
+		titleText.alpha = 0.4;
+		add(titleText);
+
 		changeSelection();
 	}
 
 	var changingNote:Bool = false;
 	override function update(elapsed:Float) {
-		checker.x -= 0.45 / (ClientPrefs.framerate / 60);
-		checker.y -= 0.16 / (ClientPrefs.framerate / 60);
 		if(changingNote) {
 			if(holdTime < 0.5) {
 				if(controls.UI_LEFT_P) {
