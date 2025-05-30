@@ -31,7 +31,8 @@ class VisualsUISubState extends BaseOptionsMenu
 			'NONE', ['NONE',
 			"DEUTERANOPIA",
 			"PROTANOPIA",
-			"TRITANOPIA",]
+			"TRITANOPIA",
+			"GRAYSCALE"]
 			);
 		#if debug option.description += "\nCan use a lot of resources in debug mode depending on system configuration, so it's recommended to lower the FPS cap."; #end
 		option.onChange = lore.Colorblind.updateFilter;
@@ -121,8 +122,8 @@ class VisualsUISubState extends BaseOptionsMenu
 			false); //Default value
 		addOption(option);
 
-		var option:Option = new Option('Icon Head Bop Style: ',
-			"The style in which the icon heads will bop to the beat.",
+		var option:Option = new Option('Icon Pulse Style: ',
+			"The style in which the icons will pulse to the beat.",
 			'bopStyle',
 			'string',
 			'LORE', ['LORE',
@@ -256,7 +257,7 @@ class VisualsUISubState extends BaseOptionsMenu
 		"If checked, the Lore Engine watermark and version number will be in the Info Display.",
 		'showLore',
 		'bool',
-		true);
+		false);
 		option.onChange = onChangeFPSCounter;
 		addOption(option);
 		#end
@@ -279,7 +280,7 @@ class VisualsUISubState extends BaseOptionsMenu
 		addOption(option);
 		#end
 
-		super();
+		super(0xffffffff);
 	}
 
 	var changedMusic:Bool = false;

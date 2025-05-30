@@ -20,7 +20,7 @@ class ClientPrefs {
 	public static var aspectRatio:String = '16:9';
 	public static var rainbowFPS:Bool = false;
 	public static var downScroll:Bool = false;
-	public static var showLore:Bool = true;
+	public static var showLore:Bool = false;
 	public static var showMem:Bool = true;
 	public static var persistentCaching:Bool = false;
 	public static var ratingScale:Float = 1;

@@ -33,7 +33,17 @@ class Colorblind {
 				   0,    0,    0, 1, 0,
 			];
 			{filter: new ColorMatrixFilter(matrix)}
-		}
+		},
+		"GRAYSCALE" => {
+			var matrix:Array<Float> = [
+				0.5, 0.5, 0.5, 0, 0,
+				0.5, 0.5, 0.5, 0, 0,
+				0.5, 0.5, 0.5, 0, 0,
+				  0,   0,   0, 1, 0,
+			];
+			
+			{filter: new ColorMatrixFilter(matrix)}
+		},
 	];
     public static function updateFilter() {
         filters = [];
