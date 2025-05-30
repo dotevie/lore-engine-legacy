@@ -64,7 +64,15 @@ class Note extends FlxSprite
 	public var noteSplashHue:Float = 0;
 	public var noteSplashSat:Float = 0;
 	public var noteSplashBrt:Float = 0;
-	public var noteSkeen:String = "NOTE_assets";
+	@:isVar public var noteSkeen(get,set):String;
+	public function get_noteSkeen():String {
+		return noteSkin;
+	}
+	public function set_noteSkeen(value:String):String {
+		noteSkin = value;
+		return value;
+	}
+	public var noteSkin:String = "NOTE_assets";
 	public var inEdit:Bool = false;
 	public var offsetX:Float = 0;
 	public var offsetY:Float = 0;
@@ -167,7 +175,7 @@ class Note extends FlxSprite
 	public function new(strumTime:Float, noteData:Int, ?prevNote:Note, ?sustainNote:Bool = false, ?inEditor:Bool = false, ?noteSkin:String = "NOTE_assets")
 	{
 		super();
-		noteSkeen=noteSkin;
+		this.noteSkin=noteSkin;
 		inEdit=inEditor;
 		if (prevNote == null)
 			prevNote = this;
@@ -271,7 +279,7 @@ class Note extends FlxSprite
 		if(texture.length < 1) {
 			skin = PlayState.SONG.arrowSkin;
 			if(skin == null || skin.length < 1) {
-				if (inEdit==true) skin = 'NOTE_assets' else skin = noteSkeen;
+				if (inEdit==true) skin = 'NOTE_assets' else skin = noteSkin;
 			}
 		}
 
