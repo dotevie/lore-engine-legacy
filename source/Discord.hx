@@ -105,7 +105,7 @@ class DiscordClient
 		lua.add_callback("changeDiscordClientID", changeClientID);
 	}
 	#end
-	public static function changeClientID(id:String) {
+	public static function changeClientID(?id:Null<String>) {
 		if (__curID == id || (__curID == defaultClientID && id == null)) return;
 		DiscordRpc.shutdown();
 		DiscordRpc.start({
