@@ -5435,7 +5435,7 @@ class PlayState extends MusicBeatState
 	}
 
 	override function destroy() {
-		Discord.DiscordClient.changeClientID("936072337219026954");
+		Discord.DiscordClient.changeClientID();
 		for (lua in luaArray) {
 			lua.call('onDestroy', []);
 			lua.stop();

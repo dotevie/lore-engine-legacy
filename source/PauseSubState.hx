@@ -287,7 +287,7 @@ class PauseSubState extends MusicBeatSubstate
 				case "Exit to menu":
 					PlayState.deathCounter = 0;
 					PlayState.seenCutscene = false;
-					Discord.DiscordClient.changeClientID("936072337219026954");
+					Discord.DiscordClient.changeClientID();
 
 					WeekData.loadTheFirstEnabledMod();
 					if (PlayState.isStoryMode)

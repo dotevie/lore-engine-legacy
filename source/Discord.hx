@@ -9,17 +9,20 @@ import llua.Lua;
 import llua.State;
 using llua.Lua.Lua_helper;
 #end
+import lore.macros.MacroTools;
 
 using StringTools;
 
 class DiscordClient
 {
 	public static var isInitialized:Bool = false;
+	public static final defaultClientID:String = MacroTools.getDiscordClientID();
+	private static var __curID:String = defaultClientID;
 	public function new()
 	{
 		trace("Discord Client starting...");
 		DiscordRpc.start({
-			clientID: "936072337219026954",
+			clientID: defaultClientID,
 			onReady: onReady,
 			onError: onError,
 			onDisconnected: onDisconnected
@@ -103,12 +106,14 @@ class DiscordClient
 	}
 	#end
 	public static function changeClientID(id:String) {
+		if (__curID == id || (__curID == defaultClientID && id == null)) return;
 		DiscordRpc.shutdown();
 		DiscordRpc.start({
-			clientID: id,
+			clientID: id ?? defaultClientID,
 			onReady: onReady,
 			onError: onError,
 			onDisconnected: onDisconnected
 		});
+		__curID = id ?? defaultClientID;
 	}
 }

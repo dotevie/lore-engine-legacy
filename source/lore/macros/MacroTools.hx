@@ -27,6 +27,12 @@ class MacroTools {
         #end
         return macro $v{sys.io.File.getContent("./engineVersion.txt")};
     }
+    public static macro function getDiscordClientID():ExprOf<String> {
+        #if display
+        return macro $v{"VALUE_EXISTS_AT_RUNTIME_ONLY"};
+        #end
+        return macro $v{sys.io.File.getContent("./discordClientID.txt")};
+    }
 
     // modified from flixel.system.macros.FlxMacroUtil
     // returns dynamic directly now because i realized reflect still works in macro context
