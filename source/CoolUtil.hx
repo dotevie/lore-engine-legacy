@@ -14,11 +14,18 @@ import sys.FileSystem;
 #else
 import openfl.utils.Assets;
 #end
+import flixel.system.scaleModes.*;
 
 using StringTools;
 
 class CoolUtil
 {
+	public static final scaleModes:Map<String, Class<BaseScaleMode>> = [
+		"LINEAR" => RatioScaleMode,
+		"INTEGER" => PixelPerfectScaleMode,
+		"STRETCH" => FillScaleMode,
+		"FIXED" => FixedScaleMode,
+	];
 	public static var lastState(default, set):Class<flixel.FlxState> = MainMenuState;
 	public static function set_lastState(value:Class<flixel.FlxState>):Class<flixel.FlxState> {
 		if (value == MusicBeatState) value = MainMenuState;

@@ -15,6 +15,7 @@ class ClientPrefs {
 		}
 		return rawMemoryFormat = value;
 	}
+	public static var scaleMode:String = "LINEAR";
 	public static var displayMiB:Bool = false;
 	public static var aspectRatio:String = '16:9';
 	public static var rainbowFPS:Bool = false;
@@ -134,6 +135,7 @@ class ClientPrefs {
 	}
 
 	public static function saveSettings() {
+		FlxG.save.data.scaleMode = scaleMode;
 		FlxG.save.data.displayMiB = displayMiB;
 		FlxG.save.data.rawMemoryFormat = rawMemoryFormat;
 		FlxG.save.data.skipTransitions = skipTransitions;
@@ -207,6 +209,9 @@ class ClientPrefs {
 	}
 
 	public static function loadPrefs() {
+		if(FlxG.save.data.scaleMode != null) {
+			scaleMode = FlxG.save.data.scaleMode;
+		}
 		if(FlxG.save.data.aspectRatio != null) {
 			aspectRatio = FlxG.save.data.aspectRatio;
 		}

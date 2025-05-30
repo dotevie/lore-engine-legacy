@@ -11,6 +11,19 @@ class VisualsUISubState extends BaseOptionsMenu
 	{
 		title = 'Visuals and UI';
 		rpcTitle = 'Visuals & UI Settings Menu'; //for Discord Rich Presence
+
+		var option:Option = new Option('Scale Mode: ',
+			"The algorithm used to scale the game to larger or smaller resolutions.",
+			'scaleMode',
+			'string',
+			'LINEAR', ['LINEAR',
+			'INTEGER',
+			'STRETCH',
+			'FIXED'
+		]);
+		option.onChange = onChangeScaleMode;
+		addOption(option);
+
 		var option:Option = new Option('Colorblind filter: ',
 			"Changes the filter used to make the game more accessible to colorblind people.",
 			'colorblindFilter',
@@ -292,4 +305,8 @@ class VisualsUISubState extends BaseOptionsMenu
 		if(Main.fpsVar != null) Main.fpsVar.updateFromPrefs();
 	}
 	#end
+
+	function onChangeScaleMode() {
+		FlxG.scaleMode = Type.createInstance(CoolUtil.scaleModes[ClientPrefs.scaleMode] ?? flixel.system.scaleModes.RatioScaleMode, []);
+	}
 }

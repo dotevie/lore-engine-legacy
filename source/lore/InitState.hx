@@ -28,6 +28,7 @@ class InitState extends MusicBeatState {
         
         FlxG.mouse.visible = false;
         Locale.init();
+		FlxG.scaleMode = Type.createInstance(CoolUtil.scaleModes[ClientPrefs.scaleMode] ?? flixel.system.scaleModes.RatioScaleMode, []);
         if(FlxG.save.data.flashing == null && !FlashingState.leftState) {
 			flixel.addons.transition.FlxTransitionableState.skipNextTransIn = true;
 			flixel.addons.transition.FlxTransitionableState.skipNextTransOut = true;
