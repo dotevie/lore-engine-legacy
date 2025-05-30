@@ -33,7 +33,7 @@ class ClientPrefs {
 	public static var lowQuality:Bool = false;
 	public static var shaders:Bool = true;
 	public static var framerate:Int = 60;
-	public static var underlayAlpha:Int = 0;
+	public static var underlayAlpha:Float = 0;
 	public static var hitSounds:String = "OFF";
 	public static var optimization(get, null):Bool = false;
 	// realizing now this fucked up more than it fixed and i don't wanna go through all of the code and change it

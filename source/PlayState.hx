@@ -2317,7 +2317,7 @@ class PlayState extends MusicBeatState
 			add(timeBar);
 			add(timeTxt);
 			laneunderlay.x = playerStrums.members[0].x - 25;
-			laneunderlay.alpha = ClientPrefs.underlayAlpha / 100;
+			laneunderlay.alpha = ClientPrefs.underlayAlpha;
 			laneunderlay.screenCenter(Y);
 			for (i in 0...playerStrums.length) {
 				setOnLuas('defaultPlayerStrumX' + i, playerStrums.members[i].x);

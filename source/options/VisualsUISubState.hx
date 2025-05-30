@@ -34,10 +34,13 @@ class VisualsUISubState extends BaseOptionsMenu
 		var option:Option = new Option('Scroll Underlay Opacity', //Name
 			'Opacity of underlay of notes', //Description
 			'underlayAlpha', //Save data variable name
-			'int', //Variable type
+			'percent', //Variable type
 			0); //Default value
+		option.scrollSpeed = 1.6;
 		option.minValue = 0;
-		option.maxValue = 100;
+		option.maxValue = 1;
+		option.changeValue = 0.05;
+		option.decimals = 2;
 		addOption(option);
 
 		var option:Option = new Option('Note Splashes',
