@@ -26,14 +26,6 @@ using StringTools;
 
 class FunkinHX implements IFlxDestroyable {
     public static var supportedFileTypes(default, null):Array<String> = ["fnf" /* hi gray */, "hscript", "hsc", "hxs", "hx"]; // if multiple files exist, this list in reverse is the priority order
-    private static var possiblyMaliciousCode(default, null):Array<String> = [
-        "@:privateAccess",
-        "ClientPrefs.aspectRatio",
-        "Highscore",
-        "Process",
-        "Sys.command",
-        "Reflect"
-    ];
     private var interp:Interp;
     public var scriptName:String = "unknown";
     public var scriptType:HScriptType = NOEXEC;
@@ -88,26 +80,6 @@ class FunkinHX implements IFlxDestroyable {
         }
         var tempBuf = new StringBuf();
         var tempArray = ttr.split("\n");
-        var maliciousLines = [];
-        for (i in 0...tempArray.length) {
-            if (tempArray[i].startsWith("package;")) tempArray[i] = "";
-            for (e in possiblyMaliciousCode) if (tempArray[i].contains(e)) {
-                maliciousLines.push('Line ${i+1}: ${tempArray[i]}');
-            }
-        }
-        if (maliciousLines.length > 0) {
-            var alertText:String = 'Th${maliciousLines.length == 1 ? "is line" : "ese lines"} of code are potentially malicious:\n\n${maliciousLines.join("\n")}\n\n';
-            alertText += #if windows 'Would you like to continue executing the script?' #else 'Make sure you trust this script. If not, close the game immediately.' #end ;
-            #if !windows
-            openfl.Lib.application.window.alert(alertText, 'Potentially malicious code detected');
-            #else
-            var confirmation = WinAPI.messageBoxYN(alertText, 'Potentially malicious code detected');
-            if (!confirmation) {
-                destroy();
-                return;
-            }
-            #end
-        }
         for (i in tempArray) tempBuf.add(i + "\n");
         ttr = tempBuf.toString();
         interp = new Interp();
@@ -250,6 +222,7 @@ class FunkinHX implements IFlxDestroyable {
             set("FlxPoint", flixel.math.FlxPoint.FlxBasePoint);
             set("HScriptType", MacroTools.getAbstract(HScriptType));
             set("cast", inlineCast);
+            set("CoolUtil", CoolUtil);
             if (primer != null) primer(this);
 
             if (ttr != null) try {
@@ -301,7 +274,6 @@ class FunkinHX implements IFlxDestroyable {
                 return interp.callMethod(f, args);
             } catch (e:Dynamic) {
                 if (!ignoreErrors && !flixel.FlxG.keys.pressed.SHIFT) {
-                    inline CoolUtil.blockExecution(0.25); // to give the player time to hold shift
                     openfl.Lib.application.window.alert('Error with script: ' + scriptName + ' at line ' + interp.posInfos().lineNumber + ":\n" + e + '\n\nHold SHIFT to bypass the error if it\'s blocking gameplay.', 'Haxe script error');
                 }
                 return null;

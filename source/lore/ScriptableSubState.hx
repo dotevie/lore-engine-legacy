@@ -36,11 +36,14 @@ class ScriptableSubState extends MusicBeatSubstate {
         script.remove("addBehindDad");
         script.remove("PlayState");
         script.set("subState", this);
+        script.set("state", this);
+        script.set("primaryState", flixel.FlxG.state);
         script.set("close", close);
         script.set("controls", controls);
         script.set("add", add);
         script.set("remove", remove);
         script.set("insert", insert);
+        script.set("indexOf", (item) -> members.indexOf(item));
     }
     public override function create():Void {
         if (script != null) script.runFunc("create", []);

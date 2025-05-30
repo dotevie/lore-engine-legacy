@@ -40,6 +40,7 @@ class ScriptableState extends MusicBeatState {
         script.set("add", add);
         script.set("remove", remove);
         script.set("insert", insert);
+        script.set("indexOf", (item) -> members.indexOf(item));
     }
     public override function create():Void {
         if (script != null) script.runFunc("create", []);
