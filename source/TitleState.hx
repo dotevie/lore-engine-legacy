@@ -122,29 +122,29 @@ class TitleState extends MusicBeatState
 		super.create();
 
 
-		#if CHECK_FOR_UPDATES
-		if(ClientPrefs.checkForUpdates && !closedState) {
-			trace('checking for update');
-			var http = new haxe.Http("https://raw.githubusercontent.com/ShadowMario/FNF-PsychEngine/main/gitVersion.txt");
+		// #if CHECK_FOR_UPDATES
+		// if(ClientPrefs.checkForUpdates && !closedState) {
+		// 	trace('checking for update');
+		// 	var http = new haxe.Http("https://raw.githubusercontent.com/ShadowMario/FNF-PsychEngine/main/gitVersion.txt");
 
-			http.onData = function (data:String)
-			{
-				updateVersion = data.split('\n')[0].trim();
-				var curVersion:String = MainMenuState.loreEngineVersion.trim();
-				trace('version online: ' + updateVersion + ', your version: ' + curVersion);
-				if(updateVersion != curVersion) {
-					trace('versions arent matching!');
-					mustUpdate = true;
-				}
-			}
+		// 	http.onData = function (data:String)
+		// 	{
+		// 		updateVersion = data.split('\n')[0].trim();
+		// 		var curVersion:String = MainMenuState.loreEngineVersion.trim();
+		// 		trace('version online: ' + updateVersion + ', your version: ' + curVersion);
+		// 		if(updateVersion != curVersion) {
+		// 			trace('versions arent matching!');
+		// 			mustUpdate = true;
+		// 		}
+		// 	}
 
-			http.onError = function (error) {
-				trace('error: $error');
-			}
+		// 	http.onError = function (error) {
+		// 		trace('error: $error');
+		// 	}
 
-			http.request();
-		}
-		#end
+		// 	http.request();
+		// }
+		// #end
 
 		// IGNORE THIS!!!
 		titleJSON = Json.parse(Paths.getTextFromFile('images/gfDanceTitle.json'));
@@ -403,7 +403,7 @@ class TitleState extends MusicBeatState
 		{
 			FlxG.fullscreen = !FlxG.fullscreen;
 		}
-		FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom, FlxG.camera.zoom, CoolUtil.boundTo(1 - (elapsed * 3.125), 0, 1));
+		FlxG.camera.zoom = FlxMath.lerp(defaultCamZoom, FlxG.camera.zoom, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
 		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER || controls.ACCEPT;
 
 		#if mobile
@@ -575,7 +575,7 @@ class TitleState extends MusicBeatState
 	override function beatHit()
 	{
 		super.beatHit();
-		FlxG.camera.zoom+=0.03;
+		if (curBeat % 2 == 1) FlxG.camera.zoom+=0.03;
 		if(logoBl != null) 
 			logoBl.animation.play('bump', true);
 
