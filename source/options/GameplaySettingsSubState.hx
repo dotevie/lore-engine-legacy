@@ -7,14 +7,17 @@ using StringTools;
 class GameplaySettingsSubState extends BaseOptionsMenu
 {
 	public function playHitsound():Void {
-		if(ClientPrefs.hitSounds != "OFF") FlxG.sound.play(Paths.sound("hitsounds/" + ClientPrefs.hitSounds.toLowerCase()), ClientPrefs.hitsoundVolume);
+		if(ClientPrefs.hitSounds != "OFF" && _timer > 0.125) {
+			FlxG.sound.play(Paths.sound("hitsounds/" + ClientPrefs.hitSounds.toLowerCase()), ClientPrefs.hitsoundVolume);
+			_timer = 0;
+		}
 	}
 	public function new()
 	{
 		title = 'Gameplay Settings';
 		rpcTitle = 'Gameplay Settings Menu'; //for Discord Rich Presence
 		var option:Option = new Option('Hitsounds: ',
-			"The sound that plays when you hit a note.",
+			"The sound that plays when you hit a note. Not recommended if you have an audio delay.",
 			'hitSounds',
 			'string',
 			'OFF', ['OFF',
@@ -32,6 +35,11 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			1
 		);
 		option.onChange = playHitsound;
+		option.scrollSpeed = 1.6;
+		option.minValue = 0;
+		option.maxValue = 1;
+		option.changeValue = 0.05;
+		option.decimals = 2;
 		addOption(option);
 		var option:Option = new Option('Controller Mode',
 			'Check this if you want to play with\na controller instead of using your Keyboard.',
@@ -144,7 +152,13 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.changeValue = 0.1;
 		addOption(option);
 
-		super();
+		super(0xffffffff);
+	}
+
+	var _timer:Float = 0;
+	override public function update(elapsed:Float) {
+		super.update(elapsed);
+		_timer += elapsed;
 	}
 
 }

@@ -75,7 +75,7 @@ class GraphicsSettingsSubState extends BaseOptionsMenu
 		option.onChange = onChangeFramerate;
 		#end
 
-		super();
+		super(0xffffffff);
 	}
 
 	function onChangeAntiAliasing()

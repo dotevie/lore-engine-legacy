@@ -23,11 +23,17 @@ class FPS extends TextField
 	@:noCompletion private var cacheCount:Int;
 	@:noCompletion private var currentTime:Float;
 	@:noCompletion private var times:Array<Float>;
-	public var visibility(default, set):Bool = true;
+	@:isVar public var visibility(get, set):Bool = true;
+	public function get_visibility():Bool {
+		return visible;
+	}
 	public function set_visibility(value:Bool):Bool {
-		visible = value;
-		for (i in borders) i.visible = value;
-		return value;
+		return set_visible(value);
+	}
+	public override function set_visible(val:Bool):Bool {
+		super.set_visible(val);
+		for (i in borders) i.visible = val;
+		return val;
 	}
 	private final borders:Array<TextField> = new Array<TextField>();
 	private var borderSize:Int = 2;
@@ -125,24 +131,35 @@ class FPS extends TextField
 		if (ClientPrefs.showLore) { templateText += '${loreThing}${(MainMenuState.loreEngineVersion.endsWith(".0") ? MainMenuState.loreEngineVersion.replace(".0", "") : MainMenuState.loreEngineVersion) + MainMenuState.versionSuffix}'; }
 		#if debug if (templateText != "") templateText += " "; templateText += '(debug)'; #end
 		#if !HIDE_HASH if (MainMenuState.isNotFinal && MainMenuState.commitHash != "") { if (templateText != "") templateText += " "; templateText += '(${MainMenuState.commitHash.substr(0, 6)})'; } #end
-		set_visibility(ClientPrefs.showFPS);
-		set_rainbowEnabled(ClientPrefs.rainbowFPS);
+		visible = ClientPrefs.showFPS;
+		rainbowEnabled = ClientPrefs.rainbowFPS;
 		updatePosition();
+	}
+
+	public override function set_x(value:Float):Float {
+		super.set_x(value);
+		for (i in 0...borders.length) {
+			if ([0, 3, 5].contains(i)) borders[i].x = value - borderSize;
+			else if ([2, 4, 7].contains(i)) borders[i].x = value + borderSize;
+			else borders[i].x = value;
+		}
+		return value;
+	}
+
+	public override function set_y(value:Float):Float {
+		super.set_y(value);
+		for (i in 0...borders.length) {
+			if ([0, 1, 2].contains(i)) borders[i].y = value - borderSize;
+			else if ([5, 6, 7].contains(i)) borders[i].y = value + borderSize;
+			else borders[i].y = value;
+		}
+		return value;
 	}
 
 	public function updatePosition():Void {
 		var mod:Int = (templateText.split("\n").length == 2) ? 39 : (templateText.split("\n").length == 3) ? 53 : 22;
-		if (ClientPrefs.fpsPosition == "TOP LEFT") 
-			this.y = 3 
-		else 
-			this.y = Lib.application.window.height - mod;
-		
-
-		for (i in 0...borders.length) {
-			if ([0, 1, 2].contains(i)) borders[i].y = this.y - borderSize;
-			else if ([5, 6, 7].contains(i)) borders[i].y = this.y + borderSize;
-			else borders[i].y = this.y;
-		}
+		if (ClientPrefs.fpsPosition == "TOP LEFT") y = 3 
+		else y = Lib.application.window.height - mod;
 
 	}
 
@@ -152,7 +169,7 @@ class FPS extends TextField
 		textColor = fromHSL({hue = (hue + (FlxG.elapsed * 100)) % 360; hue;}, 1, 0.8);
 	}
 
-	// function named fromHSL which takes a hue, saturation, and lightness value and returns a color (0xffRRGGBB)
+	// in: HSL from 0-360, 0-1, 0-1, out: RGB 0xAARRGGBB
 	private static inline function fromHSL(h:Float, s:Float, l:Float) {
 		h /= 360;
 		var r:Float, g:Float, b:Float;
@@ -205,7 +222,6 @@ extern class Memory {
 	public static function getCurrentUsage():Float;
 }
 #else
-
 /**
  * If you are not running on a CPP Platform, the code just will not work properly, sorry!
  * @author Leather128

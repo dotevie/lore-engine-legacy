@@ -316,7 +316,6 @@ class FreeplayState extends MusicBeatState
 
 		if (controls.BACK)
 		{
-			persistentUpdate = false;
 			if(colorTween != null) {
 				colorTween.cancel();
 			}
