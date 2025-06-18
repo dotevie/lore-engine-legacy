@@ -85,10 +85,10 @@ class CreditsState extends MusicBeatState
 		var credsArray:Array<Array<String>> = [
 			['Lore Engine Team'], // header
 			[
-				'sayofthelor', // name
+				'dotevie', // name
 				'bean', // icon name
 				'Creator, Main Programmer of Lore Engine', // description
-				'https://twitter.com/sayofthelor', // url
+				'https://dotevie.com', // url
 				'663399' // bg color
 			],
 			[''],
@@ -101,10 +101,17 @@ class CreditsState extends MusicBeatState
 				'FFBD40'
 			],
 			[
-				'vidyagirl',
+				'kinoko87',
 				'vg',
 				'Note Parent/Child System',
-				'https://github.com/vidyagirl',
+				'https://github.com/kinoko87',
+				'0033CC'
+			],
+			[
+				'KenneyNL',
+				'kenney',
+				'Input Glyph Icons',
+				'https://github.com/KenneyNL',
 				'0033CC'
 			],
 			[''],

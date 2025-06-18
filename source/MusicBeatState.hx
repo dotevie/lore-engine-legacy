@@ -12,6 +12,7 @@ import flixel.addons.ui.FlxUIState;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.FlxState;
 import flixel.FlxCamera;
+import lore.ControlGlyphsGroup;
 
 class MusicBeatState extends FlxUIState
 {
@@ -196,6 +197,38 @@ class MusicBeatState extends FlxUIState
 		var val:Null<Float> = 4;
 		if(PlayState.SONG != null && PlayState.SONG.notes[curSection] != null) val = PlayState.SONG.notes[curSection].sectionBeats;
 		return val == null ? 4 : val;
+	}
+
+	private var glyphs:Array<ControlGlyphsGroup> = [];
+	// [name, (keyboard glyphs (comma separated), gamepad glyphs (comma separated)]
+	public function createControlGlyphs(destinationCamera:FlxCamera, options:Array<Array<String>>) {
+		if (!ClientPrefs.showGlyphs) return;
+		for (i in glyphs) {
+			glyphs.remove(i);
+			i.destroy();
+		}
+		var startY:Float = FlxG.height;
+		var startIndex:Int = options.length - 1;
+		while (startIndex >= 0) {
+			var curArr:Array<String> = options[startIndex];
+			if (curArr[2] == "" && ClientPrefs.controllerMode) {
+				startIndex--;
+				continue; // Skip if no gamepad glyphs are provided and controller mode is enabled
+			}
+			var glyph = new ControlGlyphsGroup(curArr[0], curArr[1].split(','), curArr[2].split(','));
+			glyph.x = FlxG.width - 16 - glyph.width;
+			glyph.y = startY - glyph.height - 16;
+			glyph.scrollFactor.set();
+			glyph.camera = destinationCamera;
+			glyphs.push(glyph);
+			add(glyph);
+			startY = glyph.y;
+			startIndex--;
+		}
+	}
+
+	public function createDefaultControlGlyphs(?cam:FlxCamera) {
+		createControlGlyphs(cam ?? FlxG.camera, [["Navigate", "ui_up,ui_down", "DPAD_UP,DPAD_DOWN"], ["Select", "accept", #if !switch "A" #else "B" #end], ["Back", "back", #if !switch "B" #else "A" #end]]);
 	}
 }
 

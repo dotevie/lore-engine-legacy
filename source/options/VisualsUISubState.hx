@@ -24,6 +24,15 @@ class VisualsUISubState extends BaseOptionsMenu
 		option.onChange = onChangeScaleMode;
 		addOption(option);
 
+		var option:Option = new Option('Show Control Glyphs',
+			"Shows glyphs for assigned controls in some states.",
+			'showGlyphs',
+			'bool',
+			false
+		);
+		option.onChange = onChangeScaleMode;
+		addOption(option);
+
 		var option:Option = new Option('Colorblind filter: ',
 			"Changes the filter used to make the game more accessible to colorblind people.",
 			'colorblindFilter',

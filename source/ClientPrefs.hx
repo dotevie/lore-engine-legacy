@@ -15,6 +15,7 @@ class ClientPrefs {
 		}
 		return rawMemoryFormat = value;
 	}
+	public static var showGlyphs:Bool = true;
 	public static var scaleMode:String = "LINEAR";
 	public static var psychCam:Bool = false;
 	public static var psychSustain:Bool = false;
@@ -138,6 +139,7 @@ class ClientPrefs {
 	}
 
 	public static function saveSettings() {
+		FlxG.save.data.showGlyphs = showGlyphs;
 		FlxG.save.data.psychCam = psychCam;
 		FlxG.save.data.psychSustain = psychSustain;
 		FlxG.save.data.scaleMode = scaleMode;
@@ -215,6 +217,9 @@ class ClientPrefs {
 	}
 
 	public static function loadPrefs() {
+		if(FlxG.save.data.showGlyphs != null) {
+			showGlyphs = FlxG.save.data.showGlyphs;
+		}
 		if(FlxG.save.data.psychCam != null) {
 			psychCam = FlxG.save.data.psychCam;
 		}

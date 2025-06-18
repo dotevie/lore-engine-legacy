@@ -184,21 +184,8 @@ class FreeplayState extends MusicBeatState
 			trace(md);
 		 */
 
-		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
-		textBG.alpha = 0.6;
-		add(textBG);
 
-		#if PRELOAD_ALL
-		var leText:String = "Press SPACE to listen to the Song / Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
-		var size:Int = 16;
-		#else
-		var leText:String = "Press CTRL to open the Gameplay Changers Menu / Press RESET to Reset your Score and Accuracy.";
-		var size:Int = 18;
-		#end
-		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, size);
-		text.setFormat(Paths.font("vcr.ttf"), size, FlxColor.WHITE, RIGHT);
-		text.scrollFactor.set();
-		add(text);
+		createControlGlyphs(FlxG.camera, [["Navigate", 'ui_up,ui_down,SCROLL_UP,SCROLL_DOWN', 'DPAD_UP,DPAD_DOWN'], ["Change Difficulty", "ui_left,ui_right", "DPAD_LEFT,DPAD_RIGHT"], ["Select", 'accept', 'A'], ["Preview", "SPACE", ''], ["Gameplay Changers", 'CONTROL', ''], ["Reset Score", 'reset', 'LS'], ["Back", 'back', 'B']]);
 		super.create();
 	}
 

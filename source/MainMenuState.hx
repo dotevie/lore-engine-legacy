@@ -39,8 +39,9 @@ class MainMenuState extends lore.ScriptableState
 {
 	var menuJson:MenuJSONData = Json.parse(Paths.getTextFromFile("data/menu.json"));
 	public static final loreEngineVersion:String = MacroTools.getEngineVersion();
-	public static final versionSuffix:String = ''; // just so i can add a suffix without breaking any version checks
-	public static var isNotFinal(get, never):Bool; // i was stupid as hell when i made this so now i have to preserve compatibility!!!!
+	public static final isLegacy:Bool = true;
+	public static final versionSuffix:String = MacroTools.getVersionSuffix(); // just so i can add a suffix without breaking any version checks
+	public static var isNotFinal(get, null):Bool; // i was stupid as hell when i made this so now i have to preserve compatibility!!!!
 	public static function get_isNotFinal():Bool {
 		return !releaseVersion;
 	}
@@ -193,6 +194,8 @@ class MainMenuState extends lore.ScriptableState
 			}
 		}
 		#end
+		
+		createDefaultControlGlyphs(camGame);
 		super.createPost();
 	}
 

@@ -109,6 +109,7 @@ class OptionsState extends MusicBeatState
 		changeSelection();
 		ClientPrefs.saveSettings();
 
+		createDefaultControlGlyphs();
 		super.create();
 	}
 
