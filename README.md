@@ -1,7 +1,7 @@
 <img src="https://user-images.githubusercontent.com/35895538/184577297-98b08bcc-3144-45a7-b33f-64a11dc3c652.png" width="40%" height="40%"/> 
 
 # Lore Engine Legacy
-![GitHub License](https://img.shields.io/github/license/dotevie/lore-engine-legacy?style=for-the-badge) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/dotevie/lore-engine-legacy/total?label=GitHub%20Downloads&style=for-the-badge) ![GitHub Release](https://img.shields.io/github/v/release/dotevie/lore-engine-legacy?style=for-the-badge) ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/dotevie/lore-engine-legacy?style=for-the-badge)
+![GitHub License](https://img.shields.io/github/license/dotevie/lore-engine-legacy?style=for-the-badge) ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/dotevie/lore-engine-legacy/total?label=GitHub%20Downloads&style=for-the-badge) ![GameBanana Downloads](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.gamebanana.com%2FCore%2FItem%2FData%3Fitemtype%3DMod%26itemid%3D396147%26fields%3Ddownloads%26return_keys%3D1&label=GameBanana%20Downloads&query=$.downloads&style=for-the-badge) ![GitHub Release](https://img.shields.io/github/v/release/dotevie/lore-engine-legacy?style=for-the-badge) ![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/dotevie/lore-engine-legacy?style=for-the-badge)
 
 Lore Engine Legacy is a modification for Friday Night Funkin', based on version 0.6.3 of Psych Engine.
 
