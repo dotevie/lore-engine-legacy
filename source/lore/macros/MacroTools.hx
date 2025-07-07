@@ -25,8 +25,17 @@ class MacroTools {
         #if display
         return macro $v{"X.X.X"};
         #end
-        return macro $v{sys.io.File.getContent("./engineVersion.txt")};
+        return macro $v{sys.io.File.getContent("./engineVersion.txt").split("\n")[0].split("\r")[0]};
     }
+
+    public static macro function getVersionSuffix():ExprOf<String> {
+        #if display
+        return macro $v{"X.X.X"};
+        #end
+        return macro $v{sys.io.File.getContent("./engineVersion.txt").split("\n")[1].split("\r")[0]};
+    }
+
+
     public static macro function getDiscordClientID():ExprOf<String> {
         #if display
         return macro $v{"VALUE_EXISTS_AT_RUNTIME_ONLY"};

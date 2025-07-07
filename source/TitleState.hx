@@ -592,49 +592,30 @@ class TitleState extends MusicBeatState
 			{
 				case 1:
 					createCoolText([texts[0]]);
-				// credTextShit.visible = true;
 				case 3:
 					addMoreText(texts[1]);
-				// credTextShit.text += '\npresent...';
-				// credTextShit.addText();
 				case 4:
 					deleteCoolText();
-				// credTextShit.visible = false;
-				// credTextShit.text = 'In association \nwith';
-				// credTextShit.screenCenter();
 				case 5:
 					createCoolText([texts[2]], -40);
 				case 7:
 					addMoreText(texts[3], -40);
 					ngSpr.visible = true;
-				// credTextShit.text += '\nNewgrounds';
 				case 8:
 					deleteCoolText();
 					ngSpr.visible = false;
-				// credTextShit.visible = false;
-
-				// credTextShit.text = 'Shoutouts Tom Fulp';
-				// credTextShit.screenCenter();
 				case 9:
 					createCoolText([curWacky[0]]);
-				// credTextShit.visible = true;
 				case 11:
 					addMoreText(curWacky[1]);
-				// credTextShit.text += '\nlmao';
 				case 12:
 					deleteCoolText();
-					addMoreText('Friday');
-				// credTextShit.visible = false;
-				// credTextShit.text = "Friday";
-				// credTextShit.screenCenter();
 				case 13:
-					addMoreText('Night');
-				// credTextShit.visible = true;
+					addMoreText('Lore');
 				case 14:
-					addMoreText('Funkin\'');
-				// credTextShit.text += '\nNight';
+					addMoreText('Engine');
 				case 15:
-					addMoreText('Lore Engine'); // credTextShit.text += '\nFunkin';
+					addMoreText('Legacy'); 
 
 				case 16:
 					skipIntro();

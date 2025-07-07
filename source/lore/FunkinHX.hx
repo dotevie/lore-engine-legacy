@@ -69,6 +69,7 @@ class FunkinHX implements IFlxDestroyable {
         if (interp != null) interp.variables.remove(k);
     }
 
+    private var __blocked:Bool = false;
     public function new(?f:String, ?primer:FunkinHX->Void = null, ?type:HScriptType = FILE):Void {
         scriptName = f;
         scriptType = type;
@@ -273,8 +274,13 @@ class FunkinHX implements IFlxDestroyable {
             try {
                 return interp.callMethod(f, args);
             } catch (e:Dynamic) {
-                if (!ignoreErrors && !flixel.FlxG.keys.pressed.SHIFT) {
+                if (!ignoreErrors && !flixel.FlxG.keys.pressed.SHIFT && !__blocked) {
                     openfl.Lib.application.window.alert('Error with script: ' + scriptName + ' at line ' + interp.posInfos().lineNumber + ":\n" + e + '\n\nHold SHIFT to bypass the error if it\'s blocking gameplay.', 'Haxe script error');
+                    sys.thread.Thread.create(() -> {
+                        __blocked = true;
+                        inline CoolUtil.blockExecution(0.125);
+                        __blocked = false;
+                    });
                 }
                 return null;
             }
